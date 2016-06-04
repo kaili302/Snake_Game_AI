@@ -4,17 +4,17 @@ import java.awt.RenderingHints;
 import java.util.LinkedList;
 import java.util.HashSet;
 
-class Snake{
+class Snake implements Constants{
 	private LinkedList<Cell> nodes;
 	private HashSet<Cell> hashSet;
 
-	public Snake(){
+	public Snake(Cell node){
 		nodes=new LinkedList<Cell>();
 		hashSet=new HashSet<Cell>();
-		//insertHead(node);
+		addHead(node);
 	}
 
-	public void insertHead(Cell node){
+	public void addHead(Cell node){
 		nodes.addFirst(node);
 		hashSet.add(node);
 	}
@@ -26,11 +26,12 @@ class Snake{
 	}
 
 	public boolean contains(Cell node){
-		return hashSet.contains(node);
+		return hashSet==null || hashSet.contains(node);
 	}
 
 	public void paint(Graphics g) {
           Graphics2D g2 = (Graphics2D) g;
+          g.setColor(SNAKE_COLOR);
           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                               RenderingHints.VALUE_ANTIALIAS_ON);
     	  for (Cell cell : this.nodes) {

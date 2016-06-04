@@ -12,9 +12,8 @@ class Map implements Constants{
 
 	private Map(){
 		step=0;
-		snake=new Snake();
-		snake.insertHead(nextRandomPosition());
-		frog=new Frog();
+		snake=new Snake(nextRandomPosition());
+		frog=new Frog(nextRandomPosition());
 	}
 
 	public static Map getMap(){
@@ -33,7 +32,7 @@ class Map implements Constants{
 			x=random.nextInt(MAP_WIDTH);
 			y=random.nextInt(MAP_HEIGHT);
 			nextPosition=new Cell(x, y);
-		}while (snake.contains(nextPosition));
+		}while (snake!=null && snake.contains(nextPosition));
 		return nextPosition;
 	}
 
@@ -41,7 +40,7 @@ class Map implements Constants{
 		this.snake.paint(g);
 		this.frog.paint(g);
 		g.setColor(Color.BLUE);
-		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
 		g.drawString(String.valueOf(step), 5, 25);
 	}
 }
