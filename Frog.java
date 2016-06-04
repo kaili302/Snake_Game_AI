@@ -10,9 +10,8 @@ class Frog implements Constants{
 		this.node=node;
 	}
 	
-	public void setPosition(int x, int y){
-		this.node.setX(x);
-		this.node.setY(y);
+	public void setPosition(Cell node){
+		this.node=node;
 	} 
 
 	public void paint(Graphics g) {
@@ -21,7 +20,11 @@ class Frog implements Constants{
 		g.setColor(FROG_COLOR);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         					RenderingHints.VALUE_ANTIALIAS_ON);
-		g.fillRect(node.getX(), node.getY(), node.getSize(), node.getSize());
+		g.fillRect(node.getX()*CELL_EDGE_PIXELS, node.getY()*CELL_EDGE_PIXELS, node.getSize(), node.getSize());
 		g2.setTransform(tr);
+	}
+
+	public boolean isFrog(Cell node){
+		return this.node.equals(node);
 	}
 }

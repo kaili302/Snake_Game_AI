@@ -1,7 +1,7 @@
 class Cell implements Constants{
 	
-	private int x;
-	private int y;
+	private int x;	//colum number
+	private int y;	//line number
 	public Cell(int x, int y){
 		this.x=x;
 		this.y=y;
@@ -13,15 +13,35 @@ class Cell implements Constants{
 	public void setY(int y){ this.y=y;}
 	public static int getSize(){ return CELL_EDGE_PIXELS;}
 
-	public int hashcode(){
-		return x*MAP_WIDTH+y;
+	public int hashCode(){
+		return y*MAP_WIDTH+x;
 	}
 	
 	public boolean equals(Cell o){
-		return this.hashcode()==o.hashcode();
+		return this.hashCode()==o.hashCode();
 	}	
 
 	public String toString(){
 		return "Cell position: ("+getX()+" ,"+getY()+")";
+	}
+
+	public boolean isValid(){
+		return y>=0 && y< MAP_HEIGHT && x>=0 && x<MAP_WIDTH;
+	}
+
+	public Cell getUp(){
+		return new Cell(x, y-1);
+	}
+
+	public Cell getDown(){
+		return new Cell(x, y+1);
+	}
+
+	public Cell getLeft(){
+		return new Cell(x-1, y);
+	}
+
+	public Cell getRight(){
+		return new Cell(x+1, y);
 	}
 }

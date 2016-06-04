@@ -21,6 +21,54 @@ class Map implements Constants{
 		return instance;
 	}
 
+	public boolean run(){
+		step++;
+		if (MAP_HEIGHT%2==0){
+			Cell head=snake.getHead();
+			int col=head.getX();
+			int line=head.getY();
+			if (col==MAP_WIDTH-1 && line!=0) return moveSnake(UP);
+			else if (col==MAP_WIDTH-1 && line==0) return moveSnake(LEFT);
+			else if (line%2==0) {
+				if (col==0) return moveSnake(DOWN);
+				else return moveSnake(LEFT);
+			}else{
+				if (col==MAP_WIDTH-2 && line != MAP_HEIGHT-1) return moveSnake(DOWN);
+				else return moveSnake(RIGHT);
+			}
+		}	
+		return false;
+	}
+
+	public boolean moveSnake(char direct){
+		Cell nextPosition =null;
+		Cell snakeHead =snake.getHead();
+		switch(direct){
+			case LEFT:
+				nextPosition=snakeHead.getLeft();
+				break;
+			case RIGHT:
+				nextPosition=snakeHead.getRight();
+				break;
+			case UP:
+				nextPosition=snakeHead.getUp();
+				break;
+			case DOWN:
+				nextPosition=snakeHead.getDown();
+				break;
+		}
+		if (!nextPosition.isValid() || snake.contains(nextPosition)) return false;
+
+		if (frog.isFrog(nextPosition)){
+			snake.addHead(nextPosition);
+			frog.setPosition(nextRandomPosition());
+		}else {
+			snake.addHead(nextPosition);
+			snake.removeTail();
+		}
+		return true;
+	}
+
 	private Random random=null;
 	public Cell nextRandomPosition(){
 		if (random==null) {

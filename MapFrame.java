@@ -24,7 +24,18 @@ class MapFrame extends JFrame implements Constants{
             		MAP_WIDTH * CELL_EDGE_PIXELS,
                     MAP_HEIGHT * CELL_EDGE_PIXELS));
 		setContentPane(content);
-		//content.repaint();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+			    while (Map.getMap().run()){
+					try {
+		                Thread.sleep(SLEEP);
+		            } catch (Exception e) {
+		            }
+					content.repaint();
+				}
+			}
+		}).start();
 	}
 
 	public static void main(String[] args){

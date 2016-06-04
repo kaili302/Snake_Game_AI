@@ -6,27 +6,31 @@ import java.util.HashSet;
 
 class Snake implements Constants{
 	private LinkedList<Cell> nodes;
-	private HashSet<Cell> hashSet;
+	private HashSet<Integer> hashSet;
 
 	public Snake(Cell node){
 		nodes=new LinkedList<Cell>();
-		hashSet=new HashSet<Cell>();
+		hashSet=new HashSet<Integer>();
 		addHead(node);
+	}
+
+	public Cell getHead(){
+		return nodes.get(0);
 	}
 
 	public void addHead(Cell node){
 		nodes.addFirst(node);
-		hashSet.add(node);
+		hashSet.add(node.getY()*MAP_WIDTH+node.getX());
 	}
 
 	public Cell removeTail(){
 		Cell node=nodes.removeLast();
-		hashSet.remove(node);
+		hashSet.remove(node.getY()*MAP_WIDTH+node.getX());
 		return node;
 	}
 
 	public boolean contains(Cell node){
-		return hashSet==null || hashSet.contains(node);
+		return hashSet!=null && hashSet.contains(node.getY()*MAP_WIDTH+node.getX());
 	}
 
 	public void paint(Graphics g) {
@@ -35,7 +39,7 @@ class Snake implements Constants{
           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                               RenderingHints.VALUE_ANTIALIAS_ON);
     	  for (Cell cell : this.nodes) {
-              g.fillOval(cell.getX(), cell.getY(), cell.getSize(), cell.getSize());
+              g.fillOval(cell.getX()*CELL_EDGE_PIXELS, cell.getY()*CELL_EDGE_PIXELS, cell.getSize(), cell.getSize());
         }
 	}
 }
