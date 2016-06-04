@@ -20,17 +20,17 @@ class Snake implements Constants{
 
 	public void addHead(Cell node){
 		nodes.addFirst(node);
-		hashSet.add(node.getY()*MAP_WIDTH+node.getX());
+		hashSet.add(node.hashCode());
 	}
 
 	public Cell removeTail(){
 		Cell node=nodes.removeLast();
-		hashSet.remove(node.getY()*MAP_WIDTH+node.getX());
+		hashSet.remove(node.hashCode());
 		return node;
 	}
 
 	public boolean contains(Cell node){
-		return hashSet!=null && hashSet.contains(node.getY()*MAP_WIDTH+node.getX());
+		return hashSet!=null && hashSet.contains(node.hashCode());
 	}
 
 	public void paint(Graphics g) {

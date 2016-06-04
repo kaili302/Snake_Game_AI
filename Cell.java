@@ -3,6 +3,7 @@ class Cell implements Constants{
 	private int x;	//colum number
 	private int y;	//line number
 	public Cell(int x, int y){
+		super();
 		this.x=x;
 		this.y=y;
 	}
@@ -16,10 +17,6 @@ class Cell implements Constants{
 	public int hashCode(){
 		return y*MAP_WIDTH+x;
 	}
-	
-	public boolean equals(Cell o){
-		return this.hashCode()==o.hashCode();
-	}	
 
 	public String toString(){
 		return "Cell position: ("+getX()+" ,"+getY()+")";

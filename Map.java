@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.Random;
+import java.util.ArrayList;
 
 class Map implements Constants{
 	private static Map instance;
@@ -76,12 +77,22 @@ class Map implements Constants{
 		}
 		Cell nextPosition=null;
 		int x, y;
-		do{
-			x=random.nextInt(MAP_WIDTH);
-			y=random.nextInt(MAP_HEIGHT);
-			nextPosition=new Cell(x, y);
-		}while (snake!=null && snake.contains(nextPosition));
-		return nextPosition;
+		x=random.nextInt(MAP_WIDTH);
+		y=random.nextInt(MAP_HEIGHT);
+		nextPosition=new Cell(x, y);
+		if(snake==null || !snake.contains(nextPosition))
+			return nextPosition;
+		else{
+			/* -- no lucky to get a random free point. 
+			   Find a random point in o(n)  -- */
+			ArrayList<Cell> list=new ArrayList<Cell>(); 
+			for (int i=0; i<MAP_HEIGHT*MAP_WIDTH; i++){
+				nextPosition=new Cell(i%MAP_WIDTH, i/MAP_WIDTH);			
+				if (!snake.contains(nextPosition)) list.add(nextPosition);	
+			}
+
+			return list.size()==0?null:list.get(random.nextInt(list.size()));
+		}
 	}
 
 	public void paintMap(Graphics g) {

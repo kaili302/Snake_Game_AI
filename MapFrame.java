@@ -34,6 +34,7 @@ class MapFrame extends JFrame implements Constants{
 		            }
 					content.repaint();
 				}
+				//System.exit(0);
 			}
 		}).start();
 	}

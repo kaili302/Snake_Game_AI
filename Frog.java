@@ -15,6 +15,7 @@ class Frog implements Constants{
 	} 
 
 	public void paint(Graphics g) {
+		if (node==null) return ;
 		Graphics2D g2 = (Graphics2D) g;
 		AffineTransform tr = g2.getTransform();
 		g.setColor(FROG_COLOR);
@@ -25,6 +26,6 @@ class Frog implements Constants{
 	}
 
 	public boolean isFrog(Cell node){
-		return this.node.equals(node);
+		return this.node.hashCode()==node.hashCode();
 	}
 }
